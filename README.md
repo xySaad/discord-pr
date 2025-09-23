@@ -2,6 +2,30 @@
 
 A Discord bot that sends notifications for opened pull requests.
 
+## Usage
+
+```bash
+git clone https://github.com/xySaad/discord-pr
+```
+
+```bash
+cd discord-pr
+```
+
+```bash
+touch .env
+```
+
+fill the environement variables in .env file ([example](.example.env))
+
+```bash
+go mod tidy
+```
+
+```bash
+go run main.go
+```
+
 ## Features
 
 #### - Opens a forum thread for every pull request
