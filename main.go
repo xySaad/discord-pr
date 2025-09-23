@@ -21,7 +21,7 @@ func main() {
 	mux := mux.New(bot)
 	mux.Route("/", github.Webhook, github.GithubSignature)
 
-	err = http.ListenAndServe(":"+config.SERVER_PORT, mux)
+	err = http.ListenAndServe(config.SERVER_ADDRESS, mux)
 	if err != nil {
 		fmt.Println("http server:", err)
 		return

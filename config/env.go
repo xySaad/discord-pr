@@ -10,7 +10,7 @@ import (
 var _ = load_all()
 
 var BOT_TOKEN = os.Getenv("BOT_TOKEN")
-var SERVER_PORT = os.Getenv("SERVER_PORT")
+var SERVER_ADDRESS = os.Getenv("SERVER_ADDRESS")
 var WEBHOOK_SECRET = os.Getenv("WEBHOOK_SECRET")
 var FORUM_CHANNEL_ID = os.Getenv("FORUM_CHANNEL_ID")
 
