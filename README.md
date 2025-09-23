@@ -44,7 +44,7 @@ To connect GitHub with the bot:
    * Choose **Let me select individual events** and check **Pull requests**.
 8. Click **Add webhook**.
 
-Now, whenever a pull request is opened (or closed), your bot will post a notification in your configured Discord forum channel.
+Now, whenever a pull request is opened, your bot will post a notification in your configured Discord forum channel.
 
 ## Features
 
