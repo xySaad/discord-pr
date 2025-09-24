@@ -2,6 +2,7 @@ package events
 
 import (
 	"discord-pr/bot"
+	"discord-pr/config"
 	"discord-pr/github/types"
 	"encoding/json"
 	"fmt"
@@ -16,7 +17,7 @@ func OnPullRequest(body []byte, bot *bot.Bot, forumID string) error {
 	switch payload.Action {
 	case "opened":
 		postTitle := fmt.Sprintf("PR #%d: %s", payload.Number, payload.PullRequest.Title)
-		postDescription := payload.Pretty()
+		postDescription := payload.Pretty(config.PR_NOTIFICATION_ROLE)
 
 		tags, err := bot.GetTagIDs(forumID, "open", payload.PullRequest.Head.Ref)
 		if err != nil {

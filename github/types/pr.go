@@ -17,6 +17,7 @@ type PullRequest struct {
 	Head struct {
 		Ref string `json:"ref"`
 	} `json:"head"`
+	Commits int `json:"commits"`
 }
 
 type Repository struct {
@@ -33,7 +34,7 @@ type PullRequestPayload struct {
 	Repository  Repository  `json:"repository"`
 }
 
-func (payload *PullRequestPayload) Pretty() string {
+func (payload *PullRequestPayload) Pretty(roleID string) string {
 	prURL := fmt.Sprintf(
 		"https://github.com/%s/%s/pull/%d",
 		payload.Repository.Owner.Login,
@@ -49,14 +50,18 @@ func (payload *PullRequestPayload) Pretty() string {
 	}
 
 	postDescription := fmt.Sprintf(
-		"📦 **Repository:** %s\n"+
+		"<@&%s>\n\n"+
+			"📦 **Repository:** %s\n"+
 			"🌿 **Branch:** `%s`\n"+
 			"👤 **Author:** %s\n"+
+			"📝 **Commits:** %d\n"+
 			"🔗 **Link:** %s\n"+
 			"\n%s",
+		roleID,
 		payload.Repository.Name,
 		payload.PullRequest.Head.Ref,
 		payload.PullRequest.User.Login,
+		payload.PullRequest.Commits,
 		prURL,
 		body,
 	)
