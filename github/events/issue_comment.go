@@ -21,7 +21,7 @@ func OnIssueComment(body []byte, bot *bot.Bot, forumID string) error {
 	message := fmt.Sprintf("💬 **%s** commented:\n> %s",
 		payload.Comment.User.Login, payload.Comment.Body)
 
-	id, err := bot.SearchThread(forumID, title, 0)
+	id, err := bot.SearchThread(forumID, title, 0, true)
 	if err != nil {
 		return err
 	}

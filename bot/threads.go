@@ -3,9 +3,11 @@ package bot
 import (
 	"fmt"
 	"time"
+
+	"github.com/bwmarrin/discordgo"
 )
 
-func (b *Bot) SearchThread(forumID string, title string, archivedLimit int) (string, error) {
+func (b *Bot) SearchThread(forumID string, title string, archivedLimit int, doUnarchive bool) (string, error) {
 	threadsList, err := b.ThreadsActive(forumID)
 	if err != nil {
 		return "", fmt.Errorf("failed to list threads: %w", err)
@@ -24,6 +26,10 @@ func (b *Bot) SearchThread(forumID string, title string, archivedLimit int) (str
 			return "", fmt.Errorf("failed to list threads: %w", err)
 		}
 		if id, found := threadsList.SearchTitle(title); found {
+			_, err := b.ChannelEdit(id, &discordgo.ChannelEdit{Archived: &doUnarchive})
+			if err != nil {
+				return id, fmt.Errorf("failed to unarchive thread: %w", err)
+			}
 			return id, nil
 		}
 

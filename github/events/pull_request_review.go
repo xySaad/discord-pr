@@ -21,7 +21,7 @@ func OnPullRequestReview(body []byte, bot *bot.Bot, forumID string) error {
 	message := fmt.Sprintf("🧾 **%s** requested changes:\n> %s",
 		payload.Review.User.Login, payload.Review.Body)
 
-	id, err := bot.SearchThread(forumID, threadPrefix, 0)
+	id, err := bot.SearchThread(forumID, threadPrefix, 0, true)
 	if err != nil {
 		return err
 	}
