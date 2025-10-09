@@ -18,6 +18,18 @@ func Webhook(w http.ResponseWriter, r *mux.Request, bot *bot.Bot) {
 		if err != nil {
 			fmt.Println(err)
 		}
+
+	case "issue_comment":
+		err := events.OnIssueComment(r.Body(), bot, config.FORUM_CHANNEL_ID)
+		if err != nil {
+			fmt.Println(err)
+		}
+
+	case "pull_request_review":
+		err := events.OnPullRequestReview(r.Body(), bot, config.FORUM_CHANNEL_ID)
+		if err != nil {
+			fmt.Println(err)
+		}
 	}
 
 	w.WriteHeader(http.StatusOK)
