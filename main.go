@@ -1,16 +1,18 @@
 package main
 
 import (
-	"discord-pr/bot"
 	"discord-pr/config"
 	"discord-pr/github"
-	"discord-pr/mux"
 	"fmt"
 	"net/http"
+
+	"github.com/xySaad/gocord"
+
+	"github.com/xySaad/trail"
 )
 
 func main() {
-	bot, err := bot.New(config.BOT_TOKEN)
+	bot, err := gocord.New(config.BOT_TOKEN)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -18,10 +20,10 @@ func main() {
 	defer bot.Close()
 	fmt.Println("Bot is running...")
 
-	mux := mux.New(bot)
-	mux.Route("/", github.Webhook, github.GithubSignature)
+	router := trail.New(bot)
+	router.Add("GET /", github.Webhook, github.GithubSignature)
 
-	err = http.ListenAndServe(config.SERVER_ADDRESS, mux)
+	err = http.ListenAndServe(config.SERVER_ADDRESS, router)
 	if err != nil {
 		fmt.Println("http server:", err)
 		return

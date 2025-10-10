@@ -1,13 +1,14 @@
 package events
 
 import (
-	"discord-pr/bot"
 	"discord-pr/github/types"
 	"encoding/json"
 	"fmt"
+
+	"github.com/xySaad/gocord"
 )
 
-func OnPullRequestReview(body []byte, bot *bot.Bot, forumID string) error {
+func OnPullRequestReview(body []byte, bot *gocord.Bot, forumID string) error {
 	var payload types.PullRequestReviewPayload
 	if err := json.Unmarshal(body, &payload); err != nil {
 		return fmt.Errorf("invalid PR review payload: %w", err)

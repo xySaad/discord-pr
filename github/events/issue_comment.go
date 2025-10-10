@@ -1,13 +1,14 @@
 package events
 
 import (
-	"discord-pr/bot"
 	"discord-pr/github/types"
 	"encoding/json"
 	"fmt"
+
+	"github.com/xySaad/gocord"
 )
 
-func OnIssueComment(body []byte, bot *bot.Bot, forumID string) error {
+func OnIssueComment(body []byte, bot *gocord.Bot, forumID string) error {
 	var payload types.IssueCommentPayload
 	if err := json.Unmarshal(body, &payload); err != nil {
 		return fmt.Errorf("invalid issue comment payload: %w", err)

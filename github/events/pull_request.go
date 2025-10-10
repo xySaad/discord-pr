@@ -1,14 +1,15 @@
 package events
 
 import (
-	"discord-pr/bot"
 	"discord-pr/config"
 	"discord-pr/github/types"
 	"encoding/json"
 	"fmt"
+
+	"github.com/xySaad/gocord"
 )
 
-func OnPullRequest(body []byte, bot *bot.Bot, forumID string) error {
+func OnPullRequest(body []byte, bot *gocord.Bot, channelID string) error {
 	var payload types.PullRequestPayload
 	if err := json.Unmarshal(body, &payload); err != nil {
 		return fmt.Errorf("invalid PR payload: %s", err)
@@ -19,12 +20,12 @@ func OnPullRequest(body []byte, bot *bot.Bot, forumID string) error {
 		postTitle := fmt.Sprintf("PR #%d: %s", payload.Number, payload.PullRequest.Title)
 		postDescription := payload.Pretty(config.PR_NOTIFICATION_ROLE)
 
-		tags, err := bot.GetTagIDs(forumID, "open", payload.PullRequest.Head.Ref)
+		tags, err := bot.GetTagIDs(channelID, "open", payload.PullRequest.Head.Ref)
 		if err != nil {
 			return fmt.Errorf("error getting tag ids: %w", err)
 		}
 
-		if err := bot.CreatePost(forumID, postTitle, postDescription, tags); err != nil {
+		if err := bot.CreatePost(channelID, postTitle, postDescription, tags); err != nil {
 			return fmt.Errorf("error creating forum post: %w", err)
 		}
 
