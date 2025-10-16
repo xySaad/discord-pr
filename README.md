@@ -25,6 +25,7 @@ go mod tidy
 ```bash
 go run main.go
 ```
+
 ## Webhook Setup
 
 To connect GitHub with the bot:
@@ -37,11 +38,13 @@ To connect GitHub with the bot:
    ```
    http://<your-server-ip>:8080/webhook
    ```
+
 5. Set **Content type** to `application/json`.
 6. In **Secret**, enter the same value you used in your `.env` file under `WEBHOOK_SECRET`.
 7. Select the event type:
 
-   * Choose **Let me select individual events** and check **Pull requests**.
+   - Choose **Let me select individual events** and check **Pull requests**.
+
 8. Click **Add webhook**.
 
 Now, whenever a pull request is opened, your bot will post a notification in your configured Discord forum channel.
@@ -50,12 +53,12 @@ Now, whenever a pull request is opened, your bot will post a notification in you
 
 #### - Opens a forum thread for every pull request
 
-![Bot Screenshot](images/thread_overview.png)
+#### - Allows filtering using tags: `open` / `closed` or branch name
 
 #### - Provides a simple overview message about the pull request
 
+#### - Sends a message on PR comments
+
+![Bot Screenshot](images/thread_overview.png)
 ![Bot Screenshot](images/pr_overview.png)
-
-#### - Allows filtering using tags: `open` / `closed` or branch name
-
-![Bot Screenshot](images/filter_by_tag.png)
+![Bot Screenshot](images/comment.png)
